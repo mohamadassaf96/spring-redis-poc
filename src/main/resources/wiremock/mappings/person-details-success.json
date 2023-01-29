@@ -1,0 +1,20 @@
+{
+  "priority": 1,
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/details",
+    "queryParameters": {
+      "id": {
+        "equalTo": "1"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "fixedDelayMilliseconds": 500,
+    "bodyFileName": "person-details-success.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

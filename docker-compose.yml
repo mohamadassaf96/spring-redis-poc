@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  wiremock:
+    image: wiremock/wiremock:2.32.0
+    container_name: wiremock-boilerplate
+    ports:
+      - 8889:8080
+    command:
+      - "--global-response-templating"
+    volumes:
+      - ./src/main/resources/wiremock:/home/wiremock
+  redis:
+    image: redis
+    container_name: redis-boilerplate
+    ports:
+      - 6380:6379
