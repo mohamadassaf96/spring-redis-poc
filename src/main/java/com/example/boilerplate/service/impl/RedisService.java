@@ -11,9 +11,13 @@ import java.util.concurrent.TimeUnit;
 public class RedisService {
     private final RedisTemplate<Object, Object> redisTemplate;
 
-    public <V> void put(String cacheName, String key, V value, long timeout, TimeUnit timeUnit) {
+    public <V> void set(String cacheName, String key, V value, long timeout, TimeUnit timeUnit) {
         redisTemplate.opsForValue().set(cacheName+key, value);
         redisTemplate.expire(cacheName+key, timeout, timeUnit);
+    }
+
+    public Boolean hasKey(String cacheName, String key) {
+        return redisTemplate.hasKey(cacheName+key);
     }
 
     public <V> V get(String cacheName, String key) {

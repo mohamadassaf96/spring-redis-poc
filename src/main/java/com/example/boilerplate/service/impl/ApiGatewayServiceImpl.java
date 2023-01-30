@@ -33,9 +33,8 @@ public class ApiGatewayServiceImpl implements ApiGatewayService {
 
     @Override
     public PersonDetailsResponse getPersonDetails(PersonDetailsRequest request) {
-        PersonDetailsResponse cachedResponse = redisService.get(PERSON_DETAILS_CACHE, request.getId());
-        if (Objects.nonNull(cachedResponse))
-            return cachedResponse;
+        if (redisService.hasKey(PERSON_DETAILS_CACHE, request.getId()))
+            return redisService.get(PERSON_DETAILS_CACHE, request.getId());
         Supplier<PersonDetailsResponse> emptyResponse = PersonDetailsResponse::new;
         PersonDetailsResponse response;
 
@@ -53,7 +52,7 @@ public class ApiGatewayServiceImpl implements ApiGatewayService {
                     entity,
                     PersonDetailsResponse.class).getBody();
             if (Objects.nonNull(response)) {
-                redisService.put(PERSON_DETAILS_CACHE, request.getId(), response, SHORT_TERM_CACHE_TTL_SECONDS, TimeUnit.SECONDS);
+                redisService.set(PERSON_DETAILS_CACHE, request.getId(), response, SHORT_TERM_CACHE_TTL_SECONDS, TimeUnit.SECONDS);
             }
         } catch (Exception ex) {
             log.error(ex.getMessage());

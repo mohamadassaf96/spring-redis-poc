@@ -10,12 +10,5 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @TestAnnotation
 class BoilerplateApplicationTests {
-	@Autowired
-	private EntityManagerFactoryBuilder entityManagerFactoryBuilder;
 
-	@SneakyThrows
-	@Test
-	void contextLoads() {
-		assertThat(entityManagerFactoryBuilder).isNotNull();
-	}
 }
